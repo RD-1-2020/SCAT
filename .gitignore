@@ -1,0 +1,6 @@
+/.idea/*
+/target/*
+/UI_Autotests_MFC_Next.iml
+/build/*
+/.allure/*
+MyRunner.java

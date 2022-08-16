@@ -1,0 +1,31 @@
+include:
+  - '/gitlab-ci/test/test.yml'
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .m2/repository/
+
+stages:
+  - test
+  - deploy
+
+pages:
+  image: busybox:latest
+  stage: deploy
+  tags:
+    - Runner_Tag
+  dependencies:
+    - UI_Autotests
+  script:
+  - mkdir public
+  - ls target/site/allure-maven-plugin
+  - mv target/site/allure-maven-plugin/* public/
+  artifacts:
+    paths:
+    - public
+  only:
+    - master

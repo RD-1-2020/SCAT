@@ -1,0 +1,9 @@
+include:
+  - '/gitlab-ci/test/test-template.yml'
+
+UI_Autotests:
+  extends: test_general
+  variables:
+    TARGET_NAME: "UI_Autotests"
+  only:
+    - master
