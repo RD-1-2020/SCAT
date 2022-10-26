@@ -24,6 +24,7 @@ public class MainPageSteps {
 
     @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
     public void enterAs(String snils, String password) {
+        sleep(5000);
         $(By.name("snils")).sendKeys(snils);
         $(By.name("password")).sendKeys(password);
         $(By.xpath("//button[text()=' Войти ']")).click();
@@ -32,36 +33,42 @@ public class MainPageSteps {
     @Then("Выбрать филиал МФЦ: {string}")
     public void chooseFilial(String filial) {
         SelenideElement shadowHostFilial = $(By.xpath("(//dt-combobox)[1]"));
-
         SearchContext searchContext = shadowHostFilial.getShadowRoot();
-
         SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
         input.click();
-
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
     }
 
     @Then("Выбрать роль: {string}")
     public void chooseRole(String role) {
-
         SelenideElement shadowHostRole = $(By.xpath("(//dt-combobox)[2]"));
-
         SearchContext searchContext = shadowHostRole.getShadowRoot();
-
         SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
         input.click();
-
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).click();
     }
 
     @Then("Нажать Продолжить")
     public void cont() {
-        $(By.xpath("//button[text()=' Продолжить ']")).click();
+        $(By.xpath("//button[@class='btn btn-primary']")).click();
     }
 
-    @Then("Проверка - проверяем что-нибудь")
-    public void testS() {
-    sleep(2000);
+    @Then("Ввести в поле Введите номер линии колл-центра SMARTCALL значение {string}")
+    public void enterAs(String number) {
+        SelenideElement NumberCall = $(By.xpath("//input[@class='form-control ng-untouched ng-pristine ng-valid']"));
+        NumberCall.sendKeys(number);
     }
 
+    @Then("Проверить Фамилию Имя сотрудника {string}")
+    public void testFI(String name) {
+        sleep(2000);
+        SelenideElement LastName = $(By.xpath("//span[@id='auth-info']"));
+        LastName.shouldHave(text(name));
+    }
+
+    @Then("Проверить номер линии {string}")
+    public void testLine(String line) {
+        SelenideElement numberLine = $(By.xpath("//label[@class='x-component lineNumber-button x-box-item x-component-default']"));
+        numberLine.shouldHave(text(line));
+    }
 }
