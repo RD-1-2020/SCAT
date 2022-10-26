@@ -50,20 +50,20 @@ public class MainPageSteps {
 
     @Then("Нажать Продолжить")
     public void cont() {
-        $(By.xpath("//button[@class='btn btn-primary']")).click();
+        $(By.xpath("//button[@class='text()=' Продолжить ']")).click();
     }
 
     @Then("Ввести в поле Введите номер линии колл-центра SMARTCALL значение {string}")
     public void enterAs(String number) {
-        SelenideElement NumberCall = $(By.xpath("//input[@class='form-control ng-untouched ng-pristine ng-valid']"));
-        NumberCall.sendKeys(number);
+        SelenideElement numberCall = $(By.xpath("//input[@class='form-control ng-untouched ng-pristine ng-valid']"));
+        numberCall.sendKeys(number);
     }
 
     @Then("Проверить Фамилию Имя сотрудника {string}")
     public void testFI(String name) {
         sleep(2000);
-        SelenideElement LastName = $(By.xpath("//span[@id='auth-info']"));
-        LastName.shouldHave(text(name));
+        SelenideElement lastName = $(By.xpath("//span[@id='auth-info']"));
+        lastName.shouldHave(text(name));
     }
 
     @Then("Проверить номер линии {string}")
