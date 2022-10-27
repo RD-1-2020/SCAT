@@ -8,6 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.*;
 
+import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selectors.shadowCss;
@@ -29,66 +30,44 @@ public class MainPageSteps {
         $(By.name("password")).sendKeys(password);
         $(By.xpath("//button[text()=' Войти ']")).click();
     }
-
-    @Then("Выбрать филиал МФЦ: {string}")
-    public void chooseFilial(String filial) {
-        SelenideElement shadowHostFilial = $(By.xpath("(//dt-combobox)[1]"));
-        SearchContext searchContext = shadowHostFilial.getShadowRoot();
-        SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
-        input.click();
-        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
+    @Then("Открыть меню юзера")
+    public void openUserMenu() {
+        $(By.xpath("//span[@class='dt-icon dt-icon-user']")).should(appear);
+        $(By.xpath("//div[@class='user-menu dropdown']//a[@class='dropdown-toggle']")).click();
+    }
+    @Then("Проверить роль в меню пользователя: {string}")
+    public void difineRole(String role) {
+        $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//div [1]//div//span")).shouldHave(text(role));
+    }
+    @Then("Проверить МФЦ в меню пользователя: {string}")
+    public void difineMFC(String role) {
+        $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//div [2]//div//span")).shouldHave(text(role));
+    }
+    @Then("Проверить ФИО в хедере Некст: {string}")
+    public void difineFIO(String role) {
+        $(By.xpath("//a[@class='dropdown-toggle']")).shouldHave(text(role));
     }
 
-    @Then("Выбрать роль: {string}")
-    public void chooseRole(String role) {
-        SelenideElement shadowHostRole = $(By.xpath("(//dt-combobox)[2]"));
-        SearchContext searchContext = shadowHostRole.getShadowRoot();
-        SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
-        input.click();
-        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).click();
+    @Then("Проверяем, что пользователь на странице грида заявлений:{string}")
+    public void GridStatements(String text){
+       $(By.xpath("//div/h2")).shouldHave(text(text));
     }
 
-    @Then("Нажать Продолжить")
-    public void cont() {
-        $(By.xpath("//button[text()=' Продолжить ']")).click();
+    @Then("Выйти")
+    public void Exit(){
+        $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//a[@class='line']")).should(appear);
+        $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//a[@class='line']")).click();
     }
 
-    @Then("Ввести в поле Введите номер линии колл-центра SMARTCALL значение {string}")
-    public void enterAs(String number) {
-        SelenideElement numberCall = $(By.xpath("//input[@class='form-control ng-untouched ng-pristine ng-valid']"));
-        numberCall.sendKeys(number);
-    }
-
-    @Then("Проверить Фамилию Имя сотрудника {string}")
-    public void testFI(String name) {
-        sleep(2000);
-        SelenideElement lastName = $(By.xpath("//span[@id='auth-info']"));
-        lastName.shouldHave(text(name));
-    }
-
-    @Then("Проверить номер линии {string}")
-    public void testLine(String line) {
-        SelenideElement numberLine = $(By.xpath("//label[@class='x-component lineNumber-button x-box-item x-component-default']"));
-        numberLine.shouldHave(text(line));
-    }
-    @Then("Проверить МФЦ в шапке 2.0: {string}")
-    public void difineMFCinHeader(String role) {
-        SelenideElement mfc = $(By.xpath("//span[@id='auth']"));
-        mfc.shouldHave(text(role));
-    }
-
-    @Then("Проверить роль в шапке 2.0: {string}")
-    public void difineRoleHeader(String role) {
-        SelenideElement role1 = $(By.xpath("//span[@id='auth']"));
-        role1.shouldHave(text(role));
-    }
-    @Then("Выйти из интерфейса 2.0")
-    public void Exit20() {
-        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]")).click();
-    }
-    @Then("Закрыть браузер")
-    public void closeUrl() {
+    @Then("Закрытие окна")
+    public void CloseWindow(){
         closeWebDriver();
     }
+    @Then("Пауза")
+    public void Pause() {
+        sleep(1000000);
+    }
+
 
 }
+
