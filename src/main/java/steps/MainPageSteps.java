@@ -30,7 +30,7 @@ public class MainPageSteps {
         $(By.xpath("//button[text()=' Войти ']")).click();
     }
 
-    @Then("Выбрать филиал МФЦ: {string}")
+    @Then("Выбрать филиал МФЦ при авторизации: {string}")
     public void chooseFilial(String filial) {
         SelenideElement shadowHostFilial = $(By.xpath("(//dt-combobox)[1]"));
         SearchContext searchContext = shadowHostFilial.getShadowRoot();
@@ -39,7 +39,7 @@ public class MainPageSteps {
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
     }
 
-    @Then("Выбрать роль: {string}")
+    @Then("Выбрать роль при авторизации: {string}")
     public void chooseRole(String role) {
         SelenideElement shadowHostRole = $(By.xpath("(//dt-combobox)[2]"));
         SearchContext searchContext = shadowHostRole.getShadowRoot();
@@ -48,7 +48,7 @@ public class MainPageSteps {
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).click();
     }
 
-    @Then("Нажать Продолжить")
+    @Then("Нажать Продолжить при авторизации")
     public void cont() {
         $(By.xpath("//button[text()=' Продолжить ']")).click();
     }
@@ -59,7 +59,7 @@ public class MainPageSteps {
         numberCall.sendKeys(number);
     }
 
-    @Then("Проверить Фамилию Имя сотрудника {string}")
+    @Then("Проверить ФИО в хедере 2.0 {string}")
     public void testFI(String name) {
         sleep(2000);
         SelenideElement lastName = $(By.xpath("//span[@id='auth-info']"));
@@ -71,13 +71,13 @@ public class MainPageSteps {
         SelenideElement numberLine = $(By.xpath("//label[@class='x-component lineNumber-button x-box-item x-component-default']"));
         numberLine.shouldHave(text(line));
     }
-    @Then("Проверить МФЦ в шапке 2.0: {string}")
+    @Then("Проверить МФЦ в хедере 2.0: {string}")
     public void difineMFCinHeader(String role) {
         SelenideElement mfc = $(By.xpath("//span[@id='auth']"));
         mfc.shouldHave(text(role));
     }
 
-    @Then("Проверить роль в шапке 2.0: {string}")
+    @Then("Проверить роль в хедере 2.0: {string}")
     public void difineRoleHeader(String role) {
         SelenideElement role1 = $(By.xpath("//span[@id='auth']"));
         role1.shouldHave(text(role));
