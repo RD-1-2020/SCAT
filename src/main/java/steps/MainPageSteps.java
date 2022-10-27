@@ -82,6 +82,13 @@ public class MainPageSteps {
         SelenideElement role1 = $(By.xpath("//span[@id='auth']"));
         role1.shouldHave(text(role));
     }
-
+    @Then("Выйти из интерфейса 2.0")
+    public void Exit20() {
+        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]")).click();
+    }
+    @Then("Закрыть браузер")
+    public void closeUrl() {
+        closeWebDriver();
+    }
 
 }
