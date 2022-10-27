@@ -91,4 +91,21 @@ public class MainPageSteps {
         closeWebDriver();
     }
 
+    @Then("Проверить ФИО в хедере 3.0 {string}")
+    public void LastName3(String name) {
+        sleep(2000);
+        SelenideElement lastName = $(By.xpath("//span[@class='page-title__user decorated mat-menu-trigger']"));
+        lastName.shouldHave(text(name));
+    }
+    @Then("Проверить роль в хедере 3.0: {string}")
+    public void RoleHeader(String role) {
+        SelenideElement role1 = $(By.xpath(""));
+        role1.shouldHave(text(role));
+    }
+    @Then("Проверить МФЦ в хедере 3.0: {string}")
+    public void MFCinHeader(String role) {
+        SelenideElement mfc = $(By.xpath(""));
+        mfc.shouldHave(text(role));
+    }
+
 }
