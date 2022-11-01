@@ -84,7 +84,8 @@ public class MainPageSteps {
     }
     @Then("Выйти из интерфейса 2.0")
     public void Exit20() {
-        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]")).click();
+        SelenideElement exit = $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]"));
+        exit.click();
     }
     @Then("Закрыть браузер")
     public void closeUrl() {
@@ -99,13 +100,46 @@ public class MainPageSteps {
     }
     @Then("Проверить роль в хедере 3.0: {string}")
     public void RoleHeader(String role) {
-        SelenideElement role1 = $(By.xpath(""));
+        SelenideElement role1 = $(By.xpath("//div[@class='navigation']//a[@class='page-title__user decorated']"));
         role1.shouldHave(text(role));
     }
+
     @Then("Проверить МФЦ в хедере 3.0: {string}")
     public void MFCinHeader(String role) {
-        SelenideElement mfc = $(By.xpath(""));
+        SelenideElement mfc = $(By.xpath("//div[@class='navigation']//a[@class='page-title__user decorated ng-star-inserted']"));
         mfc.shouldHave(text(role));
+    }
+
+    @Then("Проверить текст сообщения Пользователь уволен. В авторизации отказано.")
+    public void textDismissed() {
+        SelenideElement alert = $(By.xpath("//div[@class='alert alert-danger']"));
+        alert.shouldHave(text("Пользователь уволен. В авторизации отказано."));
+    }
+
+    @Then("Нажать кнопку Войти при авторизации")
+    public void enter() {
+        sleep(5000);
+        $(By.xpath("//button[text()=' Войти ']")).click();
+    }
+
+    @Then("Проверить текст сообщения Неверный СНИЛС или пароль")
+    public void textData() {
+        SelenideElement notData = $(By.xpath("//div[@class='alert alert-danger']"));
+        notData.shouldHave(text("Неверный СНИЛС или пароль"));
+    }
+
+    @Then("Ввести СНИЛС {string} и нажать кнопку Войти")
+    public void inputSNILS(String snils) {
+        sleep(5000);
+        $(By.name("snils")).sendKeys(snils);
+        $(By.xpath("//button[text()=' Войти ']")).click();
+    }
+
+    @Then("Ввести пароль {string} и нажать кнопку Войти")
+    public void inputPass(String password) {
+        sleep(5000);
+        $(By.name("password")).sendKeys(password);
+        $(By.xpath("//button[text()=' Войти ']")).click();
     }
 
 }
