@@ -103,11 +103,16 @@ public class MainPageSteps {
 
     @Then("Проверить ФИО в хедере 2.0 {string}")
     public void FioHeader(String role) {
-        $(By.xpath("//span[@id='auth-info']")).shouldHave(text(role));
+        $(By.xpath("//span[@id='auth-info']")).should(appear).shouldHave(text(role));
     }
 
     @Then("Проверить роль в хедере 2.0: {string}")
     public void RoleHeader(String role) {
+        $(By.xpath("//span[@id='auth']")).shouldHave(text(role));
+    }
+
+    @Then("Проверить роль и мфц в хедере 2.0 при 1 роле и 1 мфц оператор: {string}")
+    public void RoleMfcHeader(String role) {
         $(By.xpath("//span[@id='auth']")).shouldHave(text(role));
     }
 
@@ -134,8 +139,14 @@ public class MainPageSteps {
         role1.shouldHave(text(role));
     }
     @Then("Проверить МФЦ в хедере 3.0: {string}")
+    public void MFCinHeader30role1Mfc1(String role) {
+        SelenideElement mfc = $(By.xpath("//div[@class='navigation']//span[@class=\"page-title__user ng-star-inserted\"]"));
+        mfc.shouldHave(text(role));
+    }
+
+    @Then("Проверить МФЦ в хедере 3.0 несколько ролей и несколько мфц: {string}")
     public void MFCinHeader30(String role) {
-        SelenideElement mfc = $(By.xpath("//div[@class='navigation']//a[@class='page-title__user decorated ng-star-inserted']"));
+        SelenideElement mfc = $(By.xpath("//div[@class=\"navigation\"]//a[@class=\"page-title__user decorated ng-star-inserted\"]"));
         mfc.shouldHave(text(role));
     }
 
