@@ -1,4 +1,4 @@
-@tagForFile
+@login20
 Feature: Авторизация 2.0
 
    @C19531/1

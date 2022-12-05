@@ -1,4 +1,4 @@
-@tagForFile
+@login30
 Feature: Авторизация 3.0
 
    @C19593\1

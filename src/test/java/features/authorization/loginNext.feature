@@ -1,4 +1,4 @@
-@tagForFile
+@loginNext
 Feature: Авторизация Next
 
   @C19000/1
