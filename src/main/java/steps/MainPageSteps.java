@@ -20,7 +20,7 @@ public class MainPageSteps {
 
     @Given("Перейти на урл")
     public void openUrl() {
-        open("http://192.168.156.21:8080/cpgu/digit-mfc-ui");
+        open("http://192.168.141.185:8080/cpgu/digit-mfc-ui");
     }
 
     @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
@@ -47,6 +47,7 @@ public class MainPageSteps {
         input.click();
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).click();
     }
+
 
     @Then("Нажать Продолжить при авторизации")
     public void cont() {
@@ -77,7 +78,7 @@ public class MainPageSteps {
 
     @Then("Проверить ФИО в хедере Некст: {string}")
     public void difineFIO(String role) {
-        $(By.xpath("//a[@class='dropdown-toggle']")).shouldHave(text(role));
+        $(By.xpath("//a[@class='dropdown-toggle']")).should(appear).shouldHave(text(role));
     }
 
     @Then("Проверить, что пользователь на странице грида заявлений Некст")
@@ -118,7 +119,7 @@ public class MainPageSteps {
 
     @Then("Выйти из интерфейса 2.0")
     public void Exit20() {
-        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]"));
+        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]")).click();
     }
 
     @Then("Проверить номер линии {string}")
@@ -131,7 +132,7 @@ public class MainPageSteps {
     public void LastName3(String name) {
         sleep(2000);
         SelenideElement lastName = $(By.xpath("//span[@class='page-title__user decorated mat-menu-trigger']"));
-        lastName.shouldHave(text(name));
+        lastName.should(appear).shouldHave(text(name));
     }
     @Then("Проверить роль в хедере 3.0: {string}")
     public void RoleHeader30(String role) {
@@ -179,5 +180,72 @@ public class MainPageSteps {
         $(By.name("password")).sendKeys(password);
         $(By.xpath("//button[text()=' Войти ']")).click();
     }
+
+    @Then("Нажать кнопку пульта ЭО Некст")
+    public void enterDamaskmenu() {
+        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]']"));
+        iconDamask.should(appear);
+        iconDamask.click();
+    }
+
+    @Then("Нажать кнопку открытия пульта ЭО Некст после авторизации")
+    public void openDamaskMenu() {
+        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]']"));
+        iconDamask.should(appear);
+        iconDamask.click();
+    }
+
+    @Then("Проверить номер окна в выпадающем меню Дамаск Некст: {string}")
+    public void dropdownDamaskMenu(String role) {
+        $(By.xpath("//div[@class=\"dt-navbar-container\"]//div[@class=\"modal-header\"]//h1")).shouldHave(text(role));
+    }
+
+    @Then("Нажать кнопку открытия пульта  ЭО 3.0 после авторизации")
+    public void openDamaskMenu30() {
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon"));
+        iconDamask30.should(appear);
+        iconDamask30.click();
+    }
+
+    @Then("Нажать кнопку Начать работу пульта ЭО 3.0 после авторизации")
+    public void clickButtonStartWork30() {
+        SelenideElement iconDamask30 = $(By.xpath("//button [@class=\"mat-menu-item ng-star-inserted\"]"));
+        iconDamask30.should(appear);
+        iconDamask30.click();
+    }
+
+    @Then("Проверить номер окна в меню Дамаск 3.0: {string}")
+    public void windowNumberChoise(String window) {
+        $(By.xpath("//span[@class=\"window-name ng-star-inserted\"]")).shouldHave(text(window));
+    }
+
+    @Then("Найти выпадающий список")
+    public void FindWindow(String window) {//TODO 1 передача переменной 2 в самом шаге нужно действие?
+        SelenideElement shadowHostWindow = $(By.xpath("//div/form/div[3]/label")).should(appear);
+    }
+
+    @Then("Выбрать окно 2 при авторизации ЭО Дамаск")
+    public void ChooseWindow2(String window){
+
+        SelenideElement  WindowChooseHost = $(By.xpath("//div[@class='dt-select-dropdown dt-select-placement-top']//div[2]")).should(appear);
+        WindowChooseHost.click();
+        WindowChooseHost.shouldHave(text("Окно 2"));
+    }
+
+    @Then("Выбрать Без подключения пульта при авторизации ЭО Дамаск")
+    public void WithoutWindow(String window){//TODO нужна ли переменная в аргументах?
+        SelenideElement NoWindowHost = $(By.xpath("//div[@class='dt-select-dropdown dt-select-placement-top']//div[@data-value='noControlPanel']")).should(appear);
+        NoWindowHost.click();
+        NoWindowHost.shouldHave(text("Без подключения пульта"));
+    }
+
+    @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать")
+    public void controller20() {
+        SelenideElement controller = $(By.id("button-1010-btnInnerEl"));
+        controller.should(appear);
+        controller.shouldHave(text("Пульт ЭО"));
+        controller.click();
+    }
+
 }
 
