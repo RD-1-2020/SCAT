@@ -30,5 +30,7 @@ public class FrameworkMaintenance {
                 e.printStackTrace();
             }
         }
+        getWebDriver().quit();
+
     }
 }
