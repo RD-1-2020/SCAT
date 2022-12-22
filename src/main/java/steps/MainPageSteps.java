@@ -8,19 +8,20 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.*;
 
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selectors.shadowCss;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
+
 public class MainPageSteps {
 
     @Given("Перейти на урл")
     public void openUrl() {
-        open("http://192.168.141.185:8080/cpgu/digit-mfc-ui");
+        open("https://next.smart-consulting.ru/cpgu/digit-mfc-ui");
     }
 
     @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
@@ -36,7 +37,7 @@ public class MainPageSteps {
         SearchContext searchContext = shadowHostFilial.getShadowRoot();
         SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
         input.click();
-        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
+        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).should(appear).click();
     }
 
     @Then("Выбрать роль при авторизации: {string}")
@@ -45,7 +46,7 @@ public class MainPageSteps {
         SearchContext searchContext = shadowHostRole.getShadowRoot();
         SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
         input.click();
-        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).click();
+        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", role))).should(appear).click();
     }
 
 
@@ -109,7 +110,7 @@ public class MainPageSteps {
 
     @Then("Проверить роль в хедере 2.0: {string}")
     public void RoleHeader(String role) {
-        $(By.xpath("//span[@id='auth']")).shouldHave(text(role));
+        $(By.xpath("//span[@id='auth']")).should(visible, Duration.ofSeconds(10)).shouldHave(text(role));
     }
 
     @Then("Проверить роль и мфц в хедере 2.0 при 1 роле и 1 мфц оператор: {string}")
@@ -132,12 +133,12 @@ public class MainPageSteps {
     public void LastName3(String name) {
         sleep(2000);
         SelenideElement lastName = $(By.xpath("//span[@class='page-title__user decorated mat-menu-trigger']"));
-        lastName.should(appear).shouldHave(text(name));
+        lastName.should(visible, Duration.ofSeconds(10)).shouldHave(text(name));
     }
     @Then("Проверить роль в хедере 3.0: {string}")
     public void RoleHeader30(String role) {
         SelenideElement role1 = $(By.xpath("//div[@class='navigation']//a[@class='page-title__user decorated']"));
-        role1.shouldHave(text(role));
+        role1.should(visible, Duration.ofSeconds(10)).shouldHave(text(role));
     }
     @Then("Проверить МФЦ в хедере 3.0: {string}")
     public void MFCinHeader30role1Mfc1(String role) {
