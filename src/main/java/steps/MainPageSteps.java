@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-
+import org.junit.Assert;
 public class MainPageSteps {
 
     @Given("Перейти на урл")
@@ -182,16 +182,9 @@ public class MainPageSteps {
         $(By.xpath("//button[text()=' Войти ']")).click();
     }
 
-    @Then("Нажать кнопку пульта ЭО Некст")
-    public void enterDamaskmenu() {
-        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]']"));
-        iconDamask.should(appear);
-        iconDamask.click();
-    }
-
     @Then("Нажать кнопку открытия пульта ЭО Некст после авторизации")
     public void openDamaskMenu() {
-        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]']"));
+        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]"));
         iconDamask.should(appear);
         iconDamask.click();
     }
@@ -220,33 +213,39 @@ public class MainPageSteps {
         $(By.xpath("//span[@class=\"window-name ng-star-inserted\"]")).shouldHave(text(window));
     }
 
-    @Then("Найти выпадающий список")
-    public void FindWindow(String window) {//TODO 1 передача переменной 2 в самом шаге нужно действие?
-        SelenideElement shadowHostWindow = $(By.xpath("//div/form/div[3]/label")).should(appear);
-    }
-
-    @Then("Выбрать окно 2 при авторизации ЭО Дамаск")
-    public void ChooseWindow2(String window){
-
-        SelenideElement  WindowChooseHost = $(By.xpath("//div[@class='dt-select-dropdown dt-select-placement-top']//div[2]")).should(appear);
-        WindowChooseHost.click();
-        WindowChooseHost.shouldHave(text("Окно 2"));
-    }
-
-    @Then("Выбрать Без подключения пульта при авторизации ЭО Дамаск")
-    public void WithoutWindow(String window){//TODO нужна ли переменная в аргументах?
-        SelenideElement NoWindowHost = $(By.xpath("//div[@class='dt-select-dropdown dt-select-placement-top']//div[@data-value='noControlPanel']")).should(appear);
-        NoWindowHost.click();
-        NoWindowHost.shouldHave(text("Без подключения пульта"));
-    }
-
     @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать")
     public void controller20() {
-        SelenideElement controller = $(By.id("button-1010-btnInnerEl"));
+        SelenideElement controller = $(By.xpath("//span[@id=\"button-1011-btnInnerEl\"]"));
         controller.should(appear);
         controller.shouldHave(text("Пульт ЭО"));
         controller.click();
     }
 
+    @Then("Выбрать окно Дамаск при авторизации: {string}")
+    public void chooseWindow(String filial) {
+        SelenideElement shadowHostFilial = $(By.xpath("(//dt-combobox)[3]"));
+        SearchContext searchContext = shadowHostFilial.getShadowRoot();
+        SelenideElement input = $(searchContext.findElement(By.cssSelector(".dt-select-value-text")));
+        input.click();
+        $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
+    }
+
+    @Then("Нажать кнопку Завершить работу пульта ЭО 3.0")
+    public void clickButtonCloseWork30() {
+        SelenideElement iconDamask30 = $(By.xpath("//button [@class=\"mat-menu-item ng-star-inserted\"]"));
+        iconDamask30.should(appear);
+        iconDamask30.click();}
+
+    @Then("Закрыть окно пульта ЭО Дамаск Некст")
+    public void closeDamaskMenu() {
+        SelenideElement crossDamask = $(By.xpath("//button[@class=\"close\"]"));
+        crossDamask.should(appear);
+        crossDamask.click();}
+
+    @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице")
+    public void notIconDamaskNext() {
+        sleep(1000);
+        Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
+        }
 }
 
