@@ -203,7 +203,8 @@ public class MainPageSteps {
 
     @Then("Нажать кнопку Начать работу пульта ЭО 3.0 после авторизации")
     public void clickButtonStartWork30() {
-        SelenideElement iconDamask30 = $(By.xpath("//button [@class=\"mat-menu-item ng-star-inserted\"]"));
+        sleep(3000);
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"mat-menu-content\"]"));
         iconDamask30.should(appear);
         iconDamask30.click();
     }
@@ -213,12 +214,10 @@ public class MainPageSteps {
         $(By.xpath("//span[@class=\"window-name ng-star-inserted\"]")).shouldHave(text(window));
     }
 
-    @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать")
+    @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать") /* не работает, не получается найти элемент*/
     public void controller20() {
-        SelenideElement controller = $(By.xpath("//span[@id=\"button-1011-btnInnerEl\"]"));
-        controller.should(appear);
-        controller.shouldHave(text("Пульт ЭО"));
-        controller.click();
+        $(By.name("Пульт ЭО")).should(appear);
+        $(By.name("Пульт ЭО")).click();
     }
 
     @Then("Выбрать окно Дамаск при авторизации: {string}")
@@ -232,7 +231,7 @@ public class MainPageSteps {
 
     @Then("Нажать кнопку Завершить работу пульта ЭО 3.0")
     public void clickButtonCloseWork30() {
-        SelenideElement iconDamask30 = $(By.xpath("//button [@class=\"mat-menu-item ng-star-inserted\"]"));
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"mat-menu-content\"]"));
         iconDamask30.should(appear);
         iconDamask30.click();}
 
@@ -244,8 +243,44 @@ public class MainPageSteps {
 
     @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице")
     public void notIconDamaskNext() {
-        sleep(1000);
         Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
         }
+
+    @Then("Проверить, что элемент Пульт ЭО 2.0 не отображается на странице") /* переделать xpath*/
+    public void notIconDamask20() {
+        Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
+    }
+
+    @Then("Нажать кнопку Начать работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
+    public void clickButtonStartWork20() {
+        SelenideElement StartWork20 = $(By.id("button-1174-btnEl"));
+        StartWork20.should(appear);
+        StartWork20.click();
+    }
+
+    @Then("Проверить номер окна в меню Дамаск 2.0: {string}") /* проверить после того как будет сделан шаг нахождения пульта*/
+    public void windowNumber20(String window) {
+        $(By.id("component-1197")).shouldHave(text(window));
+    }
+
+    @Then("Нажать кнопку Закончить работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
+    public void clickButtonCloseWork20() {
+        SelenideElement CloseWork20 = $(By.id("button-1204-btnInnerEl"));
+        CloseWork20.should(appear);
+        CloseWork20.click();
+    }
+
+    @Then("Закрыть окно пульта ЭО Дамаск 2.0") /* проверить после того как будет сделан шаг нахождения пульта*/
+    public void closeDamask20() {
+        SelenideElement crossDamask = $(By.id("tool-1217-toolEl"));
+        crossDamask.should(appear);
+        crossDamask.click();}
+
+    @Then("Нажать кнопку запущенного пульта ЭО 3.0 после начала работы") /* нажимает не ту иконку */
+    public void iconDamaskMenu30() {
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon"));
+        iconDamask30.should(appear);
+        iconDamask30.click();
+    }
 }
 
