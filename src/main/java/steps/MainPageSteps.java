@@ -196,6 +196,7 @@ public class MainPageSteps {
 
     @Then("Нажать кнопку открытия пульта  ЭО 3.0 после авторизации")
     public void openDamaskMenu30() {
+        sleep(1000);
         SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon"));
         iconDamask30.should(appear);
         iconDamask30.click();
@@ -203,7 +204,6 @@ public class MainPageSteps {
 
     @Then("Нажать кнопку Начать работу пульта ЭО 3.0 после авторизации")
     public void clickButtonStartWork30() {
-        sleep(3000);
         SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"mat-menu-content\"]"));
         iconDamask30.should(appear);
         iconDamask30.click();
@@ -212,6 +212,20 @@ public class MainPageSteps {
     @Then("Проверить номер окна в меню Дамаск 3.0: {string}")
     public void windowNumberChoise(String window) {
         $(By.xpath("//span[@class=\"window-name ng-star-inserted\"]")).shouldHave(text(window));
+    }
+
+    @Then("Нажать кнопку запущенного пульта ЭО 3.0 после начала работы")
+    public void iconDamaskMenu30() {
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon[@class=\"mat-icon notranslate material-icons mat-icon-no-color power-on\"]"));
+        iconDamask30.should(appear);
+        iconDamask30.click();
+    }
+
+    @Then("Нажать кнопку Завершить работу пульта ЭО 3.0")
+    public void clickButtonCloseWork30() {
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"mat-menu-content\"]//mat-icon[@class=\"power-off mat-icon notranslate material-icons mat-icon-no-color\"]"));
+        iconDamask30.should(appear);
+        iconDamask30.click();
     }
 
     @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать") /* не работает, не получается найти элемент*/
@@ -229,19 +243,13 @@ public class MainPageSteps {
         $(By.xpath(String.format("//div[@class='dt-select-options dt-scroll-container']//div[text()='%s']", filial))).click();
     }
 
-    @Then("Нажать кнопку Завершить работу пульта ЭО 3.0")
-    public void clickButtonCloseWork30() {
-        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"mat-menu-content\"]"));
-        iconDamask30.should(appear);
-        iconDamask30.click();}
-
     @Then("Закрыть окно пульта ЭО Дамаск Некст")
     public void closeDamaskMenu() {
         SelenideElement crossDamask = $(By.xpath("//button[@class=\"close\"]"));
         crossDamask.should(appear);
         crossDamask.click();}
 
-    @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице")
+    @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице") /* не срабатывает*/
     public void notIconDamaskNext() {
         Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
         }
@@ -251,6 +259,10 @@ public class MainPageSteps {
         Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
     }
 
+    @Then("Проверить, что элемент Пульт ЭО 3.0 не отображается на странице") /* переделать xpath*/
+    public void notIconDamask30() {
+        Assert.assertFalse($(By.xpath("//queue-toolbar")).isDisplayed());
+    }
     @Then("Нажать кнопку Начать работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void clickButtonStartWork20() {
         SelenideElement StartWork20 = $(By.id("button-1174-btnEl"));
@@ -276,11 +288,10 @@ public class MainPageSteps {
         crossDamask.should(appear);
         crossDamask.click();}
 
-    @Then("Нажать кнопку запущенного пульта ЭО 3.0 после начала работы") /* нажимает не ту иконку */
-    public void iconDamaskMenu30() {
-        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon"));
-        iconDamask30.should(appear);
-        iconDamask30.click();
+    @Then("Выход пользователя из профиля 3.0") /*не нажимает на кнопку выхода*/
+    public void exit30() {
+        $(By.xpath("//span[@class=\"page-title__user decorated mat-menu-trigger\"]")).click();
+        $(By.xpath("//div[@class=\"mat-menu-content\"]//a[@class='logout mat-menu-item\"]")).click();
     }
 }
 
