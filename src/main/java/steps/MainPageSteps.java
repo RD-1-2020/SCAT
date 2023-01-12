@@ -231,7 +231,9 @@ public class MainPageSteps {
     @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать")
     public void controller20() {
         sleep(1000);
-        $(By.id("button-1010-btnInnerEl")).should(appear).click();
+        SelenideElement Pult20= $(By.xpath("//div[@class=\"x-btn x-box-item x-btn-default-small x-noicon x-btn-noicon x-btn-default-small-noicon\"]"));
+        Pult20.should(visible, Duration.ofSeconds(10));
+        Pult20.click();
     }
 
     @Then("Выбрать окно Дамаск при авторизации: {string}")
@@ -258,7 +260,7 @@ public class MainPageSteps {
     @Then("Проверить, что элемент Пульт ЭО 2.0 не отображается на странице")
     public void notIconDamask20() {
         sleep(1000);
-        Assert.assertFalse($(By.id("button-1010-btnInnerEl")).isDisplayed());
+        Assert.assertFalse($(By.xpath("//div[@class=\"x-btn x-box-item x-btn-default-small x-noicon x-btn-noicon x-btn-default-small-noicon\"]//button")).isDisplayed());
     }
 
     @Then("Проверить, что элемент Пульт ЭО 3.0 не отображается на странице")
@@ -268,26 +270,26 @@ public class MainPageSteps {
     }
     @Then("Нажать кнопку Начать работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void clickButtonStartWork20() {
-        SelenideElement StartWork20 = $(By.id("button-1174-btnEl"));
-        StartWork20.should(appear);
+        SelenideElement StartWork20 = $(By.xpath( "//div[@class=\"x-btn x-btn-default-small-action-button x-box-item x-btn-default-small x-noicon x-btn-noicon x-btn-default-small-noicon\"]"));
+        StartWork20.should(visible, Duration.ofSeconds(10));
         StartWork20.click();
     }
 
     @Then("Проверить номер окна в меню Дамаск 2.0: {string}") /* проверить после того как будет сделан шаг нахождения пульта*/
-    public void windowNumber20(String window) {
-        $(By.id("component-1168")).shouldHave(text(window));
+    public void windowNumber20(String window2) {
+        $(By.xpath("//div[@class=\"x-component x-window-item x-component-default\"]")).shouldHave(text(window2));
     }
 
     @Then("Нажать кнопку Закончить работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void clickButtonCloseWork20() {
-        SelenideElement CloseWork20 = $(By.id("button-1175-btnInnerEl"));
+        SelenideElement CloseWork20 = $(By.xpath("//span[text()'Закончить работу']"));
         CloseWork20.should(appear);
         CloseWork20.click();
     }
 
     @Then("Закрыть окно пульта ЭО Дамаск 2.0") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void closeDamask20() {
-        SelenideElement crossDamask = $(By.id("tool-1217-toolEl"));
+        SelenideElement crossDamask = $(By.id("tool-1220-toolEl"));
         crossDamask.should(appear);
         crossDamask.click();}
 
