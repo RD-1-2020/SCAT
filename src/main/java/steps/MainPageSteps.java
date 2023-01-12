@@ -197,8 +197,8 @@ public class MainPageSteps {
     @Then("Нажать кнопку открытия пульта  ЭО 3.0 после авторизации")
     public void openDamaskMenu30() {
         sleep(1000);
-        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon"));
-        iconDamask30.should(appear);
+        SelenideElement iconDamask30 = $(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]//mat-icon[@class=\"mat-icon notranslate material-icons mat-icon-no-color\"]"));
+        iconDamask30.should(visible, Duration.ofSeconds(10));
         iconDamask30.click();
     }
 
@@ -228,10 +228,10 @@ public class MainPageSteps {
         iconDamask30.click();
     }
 
-    @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать") /* не работает, не получается найти элемент*/
+    @Then("Проверить отображение пульта ЭО Дамаск в версии 2.0 и нажать")
     public void controller20() {
-        $(By.name("Пульт ЭО")).should(appear);
-        $(By.name("Пульт ЭО")).click();
+        sleep(1000);
+        $(By.id("button-1010-btnInnerEl")).should(appear).click();
     }
 
     @Then("Выбрать окно Дамаск при авторизации: {string}")
@@ -249,19 +249,22 @@ public class MainPageSteps {
         crossDamask.should(appear);
         crossDamask.click();}
 
-    @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице") /* не срабатывает*/
+    @Then("Проверить, что элемент Пульт ЭО Некст не отображается на странице")
     public void notIconDamaskNext() {
-        Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
-        }
-
-    @Then("Проверить, что элемент Пульт ЭО 2.0 не отображается на странице") /* переделать xpath*/
-    public void notIconDamask20() {
+        sleep(1000);
         Assert.assertFalse($(By.xpath("//app-queue-console")).isDisplayed());
     }
 
-    @Then("Проверить, что элемент Пульт ЭО 3.0 не отображается на странице") /* переделать xpath*/
+    @Then("Проверить, что элемент Пульт ЭО 2.0 не отображается на странице")
+    public void notIconDamask20() {
+        sleep(1000);
+        Assert.assertFalse($(By.id("button-1010-btnInnerEl")).isDisplayed());
+    }
+
+    @Then("Проверить, что элемент Пульт ЭО 3.0 не отображается на странице")
     public void notIconDamask30() {
-        Assert.assertFalse($(By.xpath("//queue-toolbar")).isDisplayed());
+        sleep(1000);
+        Assert.assertFalse($(By.xpath("//div[@class=\"nav-item nav-icon mat-menu-trigger ng-star-inserted\"]")).isDisplayed());
     }
     @Then("Нажать кнопку Начать работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void clickButtonStartWork20() {
@@ -272,12 +275,12 @@ public class MainPageSteps {
 
     @Then("Проверить номер окна в меню Дамаск 2.0: {string}") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void windowNumber20(String window) {
-        $(By.id("component-1197")).shouldHave(text(window));
+        $(By.id("component-1168")).shouldHave(text(window));
     }
 
     @Then("Нажать кнопку Закончить работу пульта ЭО 2.0 после авторизации") /* проверить после того как будет сделан шаг нахождения пульта*/
     public void clickButtonCloseWork20() {
-        SelenideElement CloseWork20 = $(By.id("button-1204-btnInnerEl"));
+        SelenideElement CloseWork20 = $(By.id("button-1175-btnInnerEl"));
         CloseWork20.should(appear);
         CloseWork20.click();
     }
@@ -288,10 +291,5 @@ public class MainPageSteps {
         crossDamask.should(appear);
         crossDamask.click();}
 
-    @Then("Выход пользователя из профиля 3.0") /*не нажимает на кнопку выхода*/
-    public void exit30() {
-        $(By.xpath("//span[@class=\"page-title__user decorated mat-menu-trigger\"]")).click();
-        $(By.xpath("//div[@class=\"mat-menu-content\"]//a[@class='logout mat-menu-item\"]")).click();
-    }
 }
 
