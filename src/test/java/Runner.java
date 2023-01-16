@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/features",
         glue = "steps"
-       ,tags = {"@login20"}
+       ,tags = {"@login20Damask"}
 //     ,tags = {"@login20"}
 //  ,tags = {"@login30"}
 
