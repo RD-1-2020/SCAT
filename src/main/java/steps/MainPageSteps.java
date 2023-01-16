@@ -284,6 +284,7 @@ public class MainPageSteps {
     public void clickButtonCloseWork20() {
         SelenideElement CloseWork20 = $(By.xpath("//span[text()='Закончить работу']"));
         CloseWork20.should(appear);
+        sleep(1500);
         CloseWork20.click();
     }
 

@@ -1,4 +1,4 @@
-@tagForFile
+@login20Damask
 Feature: Авторизация с Дамаск версия 2.0
 
   @1434/4
