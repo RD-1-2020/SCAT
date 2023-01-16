@@ -1,12 +1,12 @@
 package steps;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -87,7 +87,7 @@ public class MainPageSteps {
        $(By.xpath("//div/h2")).shouldHave(text("Каталог заявлений"));
     }
 
-    @Then("Выйти из профиля Некст")
+    @Then("Выйти из интерфейса Некст")
     public void Exit(){
         $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//a[@class='line']")).should(appear);
         $(By.xpath("//div[@class='user-dropdown-menu dropdown-menu show']//a[@class='line']")).click();
