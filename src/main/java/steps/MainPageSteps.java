@@ -294,5 +294,10 @@ public class MainPageSteps {
         crossDamask.should(appear);
         crossDamask.click();}
 
+    @Then("Проверить отображение раздела Обезличивание заявителей")
+    public void checkGridDepersonalizedRequester(){
+        $(By.xpath("//span[text()='Обезличивание заявителей']")).should(appear);
+    }
+
 }
 
