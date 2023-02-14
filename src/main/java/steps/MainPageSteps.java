@@ -290,6 +290,7 @@ public class MainPageSteps {
 
     @Then("Закрыть окно пульта ЭО Дамаск 2.0")
     public void closeDamask20() {
+        sleep(5000);
         SelenideElement crossDamask = $(By.xpath("//div[@class=\"x-tool x-box-item x-tool-default\"]"));
         crossDamask.should(appear);
         crossDamask.click();}
@@ -297,6 +298,12 @@ public class MainPageSteps {
     @Then("Проверить отображение раздела Обезличивание заявителей")
     public void checkGridDepersonalizedRequester(){
         $(By.xpath("//span[text()='Обезличивание заявителей']")).should(appear);
+    }
+
+    @Then("Проверить отображение первой страницы авторизации")
+    public void authorizationPage(){
+        $(By.name("snils")).should(appear);
+        $(By.name("password")).should(appear);
     }
 
 }
