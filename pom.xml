@@ -27,7 +27,7 @@
         <junit.version>4.12</junit.version>
         <cucumber.version>4.3.1</cucumber.version>
         <allure.cucumber.jvm>2.13.0</allure.cucumber.jvm>
-        <selenide.version>6.6.6</selenide.version>
+        <selenide.version>6.12.3</selenide.version>
         <apache.poi.version>3.17</apache.poi.version>
         <org.json.version>20180130</org.json.version>
         <jackson.version>2.9.8</jackson.version>
