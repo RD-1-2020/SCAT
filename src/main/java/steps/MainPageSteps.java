@@ -21,7 +21,7 @@ public class MainPageSteps {
 
     @Given("Перейти на урл")
     public void openUrl() {
-        open("https://next.smart-consulting.ru/cpgu/digit-mfc-ui");
+        open("https://next.smart-consulting.ru/cpgu/digit-mfc-ui/#/orders");
     }
 
     @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
