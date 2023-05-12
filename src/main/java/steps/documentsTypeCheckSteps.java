@@ -24,7 +24,7 @@ public class documentsTypeCheckSteps {
 
     @Then("МЕНЮ ВЫБОРА ГРИДА: Выбрать грид Заявители")
     public void openGridApplicants() {
-        $(By.xpath("//div[@class='dropdown-panel']//li[3]")).click();
+        $(By.xpath("//li[@class=\"dropdown-item\"]//p[text()='Заявители']")).click();
     }
 
     @Then("ГРИД ЗАЯВИТЕЛЕЙ: Кликнуть кнопку создать заявителя")
