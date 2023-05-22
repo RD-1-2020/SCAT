@@ -21,11 +21,17 @@ public class MainPageSteps {
 
     @Given("Перейти на урл")
     public void openUrl() {
-        open("https://next.smart-consulting.ru/cpgu/digit-mfc-ui/#/orders");
+        open("http://192.168.156.210:8080/cpgu");
+    }
+
+    @Given("Перейти на урл 185")
+    public void openUrl185() {
+        open("https://next.smart-consulting.ru/cpgu/");
     }
 
     @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
     public void enterAs(String snils, String password) {
+        sleep(11000);
         $(By.name("snils")).sendKeys(snils);
         $(By.name("password")).sendKeys(password);
         $(By.xpath("//button[text()=' Войти ']")).click();
@@ -120,7 +126,7 @@ public class MainPageSteps {
 
     @Then("Выйти из интерфейса 2.0")
     public void Exit20() {
-        $(By.xpath("//span[@id='headerPanel_header_hd-textEl']//span[4]")).click();
+        $(By.xpath("//span//a[text()='Выход']")).click();
     }
 
     @Then("Проверить номер линии {string}")
@@ -131,7 +137,7 @@ public class MainPageSteps {
 
     @Then("Проверить ФИО в хедере 3.0 {string}")
     public void LastName3(String name) {
-        sleep(2000);
+        sleep(5000);
         SelenideElement lastName = $(By.xpath("//span[@class='page-title__user decorated mat-menu-trigger']"));
         lastName.should(visible, Duration.ofSeconds(10)).shouldHave(text(name));
     }
@@ -184,7 +190,7 @@ public class MainPageSteps {
 
     @Then("Нажать кнопку открытия пульта ЭО Некст после авторизации")
     public void openDamaskMenu() {
-        SelenideElement iconDamask = $(By.xpath("//div[@class=\"dt-navbar-container\"]//svg-icon [1]"));
+        SelenideElement iconDamask = $(By.xpath("//app-queue-console//svg-icon"));
         iconDamask.should(appear);
         iconDamask.click();
     }
@@ -260,7 +266,7 @@ public class MainPageSteps {
     @Then("Проверить, что элемент Пульт ЭО 2.0 не отображается на странице")
     public void notIconDamask20() {
         sleep(1000);
-        Assert.assertFalse($(By.xpath("//div[@class=\"x-btn x-box-item x-btn-default-small x-noicon x-btn-noicon x-btn-default-small-noicon\"]")).isDisplayed());
+        Assert.assertFalse($(By.xpath("//span[text()='Пульт ЭО']")).isDisplayed());
     }
 
     @Then("Проверить, что элемент Пульт ЭО 3.0 не отображается на странице")

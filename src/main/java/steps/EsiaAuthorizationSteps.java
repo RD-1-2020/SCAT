@@ -14,16 +14,17 @@ public class EsiaAuthorizationSteps {
 
     @Then("Нажать на гипертекст 'Войти с помощью ЕСИА'")
     public void ClickHypertext() {
+        sleep(1000);
         $(By.xpath("//div[@class='esia-login']/a")).should(appear);
         $(By.xpath("//div[@class='esia-login']/a")).click();
     }
 
     @Then("Ввести номер СНИЛС ЕСИА {string} и пароль ЕСИА {string} и нажать кнопку Войти")
     public void EsiaSnilsPassword(String numberSnils, String password) {
-
+        sleep(1000);
         $(By.xpath("//input[@id=\"login\"]")).sendKeys(numberSnils);
         $(By.xpath("//input[@id=\"password\"]")).sendKeys(password);
-        $(By.xpath("//button/span[@class='ui-button-text']")).should(appear).click();
+        $(By.xpath("//button[text()=' Войти ']")).should(appear).click();
         sleep(1000);
     }
 

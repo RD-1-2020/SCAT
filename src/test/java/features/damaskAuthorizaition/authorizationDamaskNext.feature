@@ -1,4 +1,4 @@
-@tagForFile
+@loginNextDamask
 Feature: Авторизация с Дамаск версия Next
 
  @1919/1

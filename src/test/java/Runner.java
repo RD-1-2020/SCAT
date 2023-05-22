@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/features",
         glue = "steps"
-       ,tags = {"@login20"}
+       ,tags = {"@loginEsia"}
 //     ,tags = {"@login20"}
 //  ,tags = {"@login30"}
 
@@ -20,5 +20,6 @@ public class Runner {
         Configuration.browser = "chrome";
         Configuration.browserSize = "1260x768";
         Configuration.timeout = 10000;
+        Configuration.headless = true;
     }
 }
