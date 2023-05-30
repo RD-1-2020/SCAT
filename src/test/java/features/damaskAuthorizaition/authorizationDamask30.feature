@@ -1,4 +1,4 @@
-@tagForFile
+@login30Damask
 Feature: Авторизация с Дамаск версия 3.0
 
   @643/1
