@@ -1,4 +1,4 @@
-package com.sc.core.pages;
+package com.sc.core.pages.auth;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;

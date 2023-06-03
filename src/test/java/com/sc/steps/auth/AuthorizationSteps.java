@@ -1,10 +1,14 @@
 package com.sc.steps.auth;
 
-import com.sc.core.pages.AuthorizationPage;
-import com.sc.core.service.ActionService;
+import com.sc.core.pages.auth.AuthorizationPage;
+import com.sc.core.service.element.DropdownService;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
@@ -14,23 +18,60 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
 import static com.sc.core.constant.Message.LOGIN_OR_PASS_INCORRECT_ERROR;
 import static com.sc.core.constant.Message.USER_FIRED_ALERT;
+import static com.sc.core.constant.UrlConstant.NEXT_UI_URL_SUFFIX;
 
 public class AuthorizationSteps {
+    private final static Logger logger = LoggerFactory.getLogger(AuthorizationSteps.class);
 
     @Autowired
     private AuthorizationPage authorizationPage;
 
     @Autowired
-    private ActionService actionService;
+    private DropdownService dropdownService;
 
-    @Given("Перейти на урл")
+    @Value("${ais.base.url:http://192.168.141.185:8080/cpgu/}")
+    private String baseUrl;
+
+    @Value("${universal.user.snils:00000000000}")
+    private String universalSnils;
+
+    @Value("${universal.user.password:123}")
+    private String universalPassword;
+
+    @Value("${universal.user.test.mfc:Тестовый МФЦ}")
+    private String testMfcDisplayName;
+
+    @Given("Открыта АИС МФЦ")
     public void openUrl() {
-        open("https://next.smart-consulting.ru/cpgu");
+        open(baseUrl);
     }
 
-    @Then("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
+    @Given("Открыт интерфейс NEXT")
+    public void goToNextUi() {
+        open(baseUrl + NEXT_UI_URL_SUFFIX);
+    }
+
+    @Given("Авторизован под {string}")
+    public void operatorAuth(String roleTitle) {
+        authorizationPage.loginInput().sendKeys(universalSnils);
+        authorizationPage.passwordInput().sendKeys(universalPassword);
+        authorizationPage.loginButton().click();
+
+        dropdownService.selectValueIntoDropdown(authorizationPage.filialDropdown(), testMfcDisplayName);
+        dropdownService.selectValueIntoDropdown(authorizationPage.roleDropdown(), roleTitle);
+
+//        try {
+//            dropdownService.selectValueIntoDropdown(authorizationPage.damaskWindowDropdown(), DAMASK_NO_WINDOW_TEXT);
+//        } catch (Throwable exception) {
+//            logger.debug("Damask window dropdown not find, but may be it's normal", exception);
+//        }
+
+        authorizationPage.nextButton().click();
+    }
+
+    @And("Ввести СНИЛС {string} и пароль {string} и нажать кнопку Войти")
     public void enterAs(String snils, String password) {
-        LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(11000));;
+        LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(11000));
         authorizationPage.loginInput().sendKeys(snils);
         authorizationPage.passwordInput().sendKeys(password);
         authorizationPage.loginButton().click();
@@ -38,12 +79,12 @@ public class AuthorizationSteps {
 
     @Then("Выбрать филиал МФЦ при авторизации: {string}")
     public void chooseFilial(String filial) {
-        actionService.selectValueIntoDropdown(authorizationPage.filialDropdown(), filial);
+        dropdownService.selectValueIntoDropdown(authorizationPage.filialDropdown(), filial);
     }
 
     @Then("Выбрать роль при авторизации: {string}")
     public void chooseRole(String role) {
-        actionService.selectValueIntoDropdown(authorizationPage.roleDropdown(), role);
+        dropdownService.selectValueIntoDropdown(authorizationPage.roleDropdown(), role);
     }
 
     @Then("Нажать Продолжить при авторизации")
@@ -58,7 +99,7 @@ public class AuthorizationSteps {
 
     @Then("Выбрать окно Дамаск при авторизации: {string}")
     public void chooseWindow(String window) {
-        actionService.selectValueIntoDropdown(authorizationPage.damaskWindowDropdown(), window);
+        dropdownService.selectValueIntoDropdown(authorizationPage.damaskWindowDropdown(), window);
     }
 
     @Then("Проверить текст сообщения Пользователь уволен. В авторизации отказано.")

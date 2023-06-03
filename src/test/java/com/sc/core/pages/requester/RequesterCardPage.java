@@ -1,7 +1,7 @@
-package com.sc.core.pages;
+package com.sc.core.pages.requester;
 
 import com.codeborne.selenide.SelenideElement;
-import com.sc.core.utils.ShadowDoomUtils;
+import com.sc.core.utils.ShadowDomUtils;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,14 @@ import static com.codeborne.selenide.Selenide.$;
 @Service
 public class RequesterCardPage {
     @Autowired
-    private ShadowDoomUtils shadowDoomUtils;
+    private ShadowDomUtils shadowDomUtils;
 
     public SelenideElement documentTypeDropdown() {
-        return shadowDoomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select"));
+        return shadowDomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select"));
     }
 
     public SelenideElement clearDocumentTypeButton() {
-        return shadowDoomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select-clear"));
+        return shadowDomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select-clear"));
     }
 
     public SelenideElement dulSeriesInput() {

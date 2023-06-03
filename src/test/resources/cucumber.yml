@@ -1,0 +1,3 @@
+full-test: --tags @bp or @loginNext or @loginEsia or @documentsTypeCheck
+business-process: --tags @bp
+authorization: --tags @loginNext or @loginEsia
