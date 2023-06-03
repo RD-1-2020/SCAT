@@ -1,4 +1,4 @@
-package com.sc.steps;
+package com.sc;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;

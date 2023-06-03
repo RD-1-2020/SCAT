@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import static com.codeborne.selenide.Selenide.$;
 
 @Service
-public class ShadowDoomUtils {
+public class ShadowDomUtils {
     /**
      * Функция для получения элемента из ShadowDoom
      * @param shadowDoomRootSelector Селектор до корня ShadowDoom

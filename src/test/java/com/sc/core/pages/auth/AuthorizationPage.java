@@ -1,7 +1,7 @@
-package com.sc.core.pages;
+package com.sc.core.pages.auth;
 
 import com.codeborne.selenide.SelenideElement;
-import com.sc.core.utils.ShadowDoomUtils;
+import com.sc.core.utils.ShadowDomUtils;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class AuthorizationPage {
 
     @Autowired
-    private ShadowDoomUtils shadowDoomUtils;
+    private ShadowDomUtils shadowDomUtils;
 
     public SelenideElement passwordInput() {
         return $(By.name("password"));
@@ -31,15 +31,15 @@ public class AuthorizationPage {
     }
 
     public SelenideElement filialDropdown() {
-        return shadowDoomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[1]"), By.cssSelector(".dt-select-value-text"));
+        return shadowDomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[1]"), By.cssSelector(".dt-select-value-text"));
     }
 
     public SelenideElement roleDropdown() {
-        return shadowDoomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[2]"), By.cssSelector(".dt-select-value-text"));
+        return shadowDomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[2]"), By.cssSelector(".dt-select-value-text"));
     }
 
     public SelenideElement damaskWindowDropdown() {
-        return shadowDoomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select-value-text"));
+        return shadowDomUtils.getElementFromShadowDoom(By.xpath("(//dt-combobox)[3]"), By.cssSelector(".dt-select-value-text"));
     }
 
     public SelenideElement errorMessageLabel() {

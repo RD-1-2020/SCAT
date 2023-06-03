@@ -51,4 +51,8 @@ public class MainPage {
     public SelenideElement activeTab() {
         return $(By.xpath("//a[@class='dt-navbar-page navigate-components active']"));
     }
+
+    public SelenideElement activeToast() {
+        return $(By.xpath("//div[@class='dt-toast-message']"));
+    }
 }

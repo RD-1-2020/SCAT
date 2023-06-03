@@ -9,10 +9,11 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/java/com/sc/features",
-        tags = "@documentsTypeCheck",
+        tags = "@bp",
         extraGlue = "src/test/java/com/sc/core"
 )
 public class Runner {
+
     @BeforeClass
     static public void setup() {
         Configuration.browser = "chrome";

@@ -1,7 +1,7 @@
 package com.sc.steps.auth;
 
-import com.sc.core.pages.AuthorizationPage;
-import com.sc.core.pages.EsiaPage;
+import com.sc.core.pages.auth.AuthorizationPage;
+import com.sc.core.pages.auth.EsiaPage;
 import io.cucumber.java.en.Then;
 import org.springframework.beans.factory.annotation.Autowired;
 

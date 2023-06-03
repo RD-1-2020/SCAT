@@ -1,10 +1,10 @@
-package com.sc.steps;
+package com.sc.steps.requester;
 
 import com.codeborne.selenide.SelenideElement;
-import com.sc.core.pages.RequesterCardPage;
-import com.sc.core.pages.RequesterGridPage;
+import com.sc.core.pages.requester.RequesterCardPage;
+import com.sc.core.pages.requester.RequesterGridPage;
 import com.sc.core.service.ActionService;
-import com.sc.core.service.LeftNavbarService;
+import com.sc.core.service.element.DropdownService;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
@@ -28,15 +28,10 @@ public class DocumentsTypeCheckSteps {
     private RequesterGridPage requesterGridPage;
 
     @Autowired
-    private LeftNavbarService leftNavbarService;
+    private ActionService actionService;
 
     @Autowired
-    private ActionService actionService;
-    
-    @Then("МЕНЮ ВЫБОРА ГРИДА: Выбрать грид Заявители")
-    public void openGridApplicants() {
-        leftNavbarService.openRequesterGrid();
-    }
+    private DropdownService dropdownService;
 
     @Then("ГРИД ЗАЯВИТЕЛЕЙ: Кликнуть кнопку создать заявителя")
     public void createApplicant() {
@@ -60,8 +55,8 @@ public class DocumentsTypeCheckSteps {
 
     @Then("КАРТОЧКА ЗАЯВИТЕЛЯ: Выбрать Тип документа в выпадающем списке: {string}")
     public void openDropdownTypeDocumentCard(String typeDocument) {
-        SelenideElement scrolledDropdown = actionService.scrollToElementInTop(requesterCardPage.documentTypeDropdown());
-        actionService.selectValueIntoDropdown(scrolledDropdown, typeDocument);
+        SelenideElement scrolledDropdown = actionService.scrollToElementInCenter(requesterCardPage.documentTypeDropdown());
+        dropdownService.selectValueIntoDropdown(scrolledDropdown, typeDocument);
     }
 
     @Then("КАРТОЧКА ЗАЯВИТЕЛЯ: Заполнить серию, номер и проверить появление ошибок валидации поля")
@@ -69,13 +64,13 @@ public class DocumentsTypeCheckSteps {
         List<List<String>> table = arg.asLists(String.class);
 
         
-        SelenideElement documentTypeDropdown = actionService.scrollToElementInTop(requesterCardPage.documentTypeDropdown());
+        SelenideElement documentTypeDropdown = actionService.scrollToElementInCenter(requesterCardPage.documentTypeDropdown());
         SelenideElement dulSeriesInput = requesterCardPage.dulSeriesInput();
         SelenideElement dulNumberInput = requesterCardPage.dulNumberInput();
         SelenideElement clickMiss = requesterCardPage.missClickElement();
 
         for (List<String> strings : table) {
-            actionService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
+            dropdownService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
             dulSeriesInput.sendKeys(strings.get(1));
             dulNumberInput.sendKeys(strings.get(2));
             clickMiss.click();
@@ -93,12 +88,12 @@ public class DocumentsTypeCheckSteps {
     public void checkNumber(DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
 
-        SelenideElement documentTypeDropdown = actionService.scrollToElementInTop(requesterCardPage.documentTypeDropdown());
+        SelenideElement documentTypeDropdown = actionService.scrollToElementInCenter(requesterCardPage.documentTypeDropdown());
         SelenideElement dulNumberInput = requesterCardPage.dulNumberInput();
         SelenideElement clickMiss = requesterCardPage.missClickElement();
 
         for (List<String> strings : table) {
-            actionService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
+            dropdownService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
             dulNumberInput.sendKeys(strings.get(1));
             clickMiss.click();
             LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(1000));
@@ -113,13 +108,13 @@ public class DocumentsTypeCheckSteps {
     public void checkSeriesNumberUniqueness(DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
 
-        SelenideElement documentTypeDropdown = actionService.scrollToElementInTop(requesterCardPage.documentTypeDropdown());
+        SelenideElement documentTypeDropdown = actionService.scrollToElementInCenter(requesterCardPage.documentTypeDropdown());
         SelenideElement series = requesterCardPage.dulSeriesInput();
         SelenideElement number = requesterCardPage.dulNumberInput();
         SelenideElement clickMiss = requesterCardPage.missClickElement();
 
         for (List<String> strings : table) {
-            actionService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
+            dropdownService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
             series.sendKeys(strings.get(1));
             number.sendKeys(strings.get(2));
             clickMiss.click();
@@ -136,12 +131,12 @@ public class DocumentsTypeCheckSteps {
     public void checkNumberUniqueness(DataTable arg) {
         List<List<String>> table = arg.asLists(String.class);
 
-        SelenideElement documentTypeDropdown = actionService.scrollToElementInTop(requesterCardPage.documentTypeDropdown());
+        SelenideElement documentTypeDropdown = actionService.scrollToElementInCenter(requesterCardPage.documentTypeDropdown());
         SelenideElement dulNumberInput = requesterCardPage.dulNumberInput();
         SelenideElement clickMiss = requesterCardPage.missClickElement();
 
         for (List<String> strings : table) {
-            actionService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
+            dropdownService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
             dulNumberInput.sendKeys(strings.get(1));
             clickMiss.click();
             LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(1000));
@@ -173,7 +168,7 @@ public class DocumentsTypeCheckSteps {
         requesterCardPage.missClickElement().click();
 
         for (List<String> strings : table) {
-            actionService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
+            dropdownService.selectValueIntoDropdown(documentTypeDropdown, strings.get(0));
             LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(1000));
 
             requesterCardPage.requiredSeriesErrorMessageLabel().shouldHave(text(REQUIRED_FIELD_ERROR));
