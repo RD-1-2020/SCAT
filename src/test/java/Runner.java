@@ -17,6 +17,6 @@ public class Runner {
         Configuration.browser = "chrome";
         Configuration.browserSize = "1260x768";
         Configuration.timeout = 10000;
-        Configuration.headless = false;
+        Configuration.headless = true;
     }
 }
