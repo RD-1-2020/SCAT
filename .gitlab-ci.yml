@@ -10,6 +10,6 @@ cache:
 test:
   stage: test
   image:
-    name: markhobson/maven-chrome:jdk-8
+    name: nexusrepo.smart-consulting.ru/markhobson/maven-chrome:jdk-8
   script:
     - mvn test $TEST_IT_MVN_CLI_OPTS "-Dcucumber.options=--tags $TEST_RUN_TAG"
