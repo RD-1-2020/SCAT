@@ -32,8 +32,11 @@ public class OrderWizardSteps {
     @Autowired
     private ActionService actionService;
 
-    @Value("${non.electronic.service.title.without.sub.department}")
+    @Value("${non.electronic.service.title.without.sub.department:}")
     private String nonElectronicServiceTitle;
+
+    @Value("${electronic.service.title.without.sub.department:}")
+    private String electronicServiceTitle;
 
     @Value("${fl.requester.display.name}")
     private String flDisplayName;
@@ -78,11 +81,6 @@ public class OrderWizardSteps {
     @And("Нажал на основное действие {string}")
     public void changeStatusTo(String statusTitle) {
         orderWizardPage.mainActionButtonByText(statusTitle).click();
-        String orderId = orderWizardPage.wizardTitleLabel().text().trim();
-
-        Assert.assertNotEquals(Message.NEW_ORDER_WIZARD_TITLE, orderId);
-
-        testDataHolder.setOrderNumber(orderId);
     }
 
     @And("Закрыли окно валидации формы заявления")
@@ -90,8 +88,16 @@ public class OrderWizardSteps {
         orderWizardPage.closeValidateWindowButton().click();
     }
 
-    @And("Запомнил наименования ведомства")
-    public void checkDepartmentName() {
+    @And("Запомнил информацию по заявлению")
+    public void saveOrderInfo() {
+        String orderNumber = orderWizardPage.wizardTitleLabel().text().trim();
+        String orderId = orderWizardPage.orderIdLabel().text().trim();
+
+        Assert.assertNotEquals(Message.NEW_ORDER_WIZARD_TITLE, orderNumber);
+
+        testDataHolder.setOrderNumber(orderNumber);
+        testDataHolder.setOrderId(orderId);
+
         orderWizardPage.expandMainInfoLink().click();
 
         SelenideElement departmentTitleElement = orderWizardPage.departmentTitleLabel();
@@ -99,5 +105,11 @@ public class OrderWizardSteps {
 
         Assert.assertFalse(StringUtils.isBlank(departmentTitle));
         testDataHolder.setDepartmentTitle(departmentTitle);
+    }
+
+    @And("Выбрал электронную услугу")
+    public void selectElectronicService() {
+        gridService.searchRowAndCheckCheckbox(electronicServiceTitle);
+        testDataHolder.setServiceTitle(electronicServiceTitle);
     }
 }

@@ -32,7 +32,7 @@ public class GlobalSteps {
 
     @When("Нажал на кнопку {string}")
     public void clickToButtonByText(String buttonTitle) {
-        actionService.getElementBySelectorAndText(BUTTON_BY_TEXT_SELECTOR, buttonTitle).click();
+        actionService.getElementBySelectorAndText(BUTTON_BY_TEXT_SELECTOR, buttonTitle).should(Condition.enabled).click();
     }
 
     @When("Закрыл активное окно")

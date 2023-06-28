@@ -1,31 +1,15 @@
-include:
-  - '/gitlab-ci/test/test.yml'
-
 variables:
-  DOCKER_DRIVER: overlay2
-
-cache:
-  key: "$CI_COMMIT_REF_SLUG"
-  paths:
-    - .m2/repository/
-
+  TEST_RUN_TAG: \@bp
+  TEST_IT_MVN_CLI_OPTS: -DtmsUrl=https://test-it.smart-consulting.ru -DtmsPrivateToken=SEdHamRnOHpTRVNGNkZ5OU1T -DtmsProjectId=4e4cdae5-3967-4bed-84ce-f7421c529dda -DtmsConfigurationId=f977e67d-58d3-4537-8965-57334e5d0ebe -DtmsAdapterMode=2 -DtmsAutomaticCreationTestCases=true -DtmsCertValidation=true
 stages:
   - test
-  - deploy
+cache:
+  paths:
+    - $HOME/.m2
 
-pages:
-  image: busybox:latest
-  stage: deploy
-  tags:
-    - Runner_Tag
-  dependencies:
-    - UI_Autotests
+test:
+  stage: test
+  image:
+    name: markhobson/maven-chrome:jdk-8
   script:
-  - mkdir public
-  - ls target/site/allure-maven-plugin
-  - mv target/site/allure-maven-plugin/* public/
-  artifacts:
-    paths:
-    - public
-  only:
-    - master
+    - mvn test $TEST_IT_MVN_CLI_OPTS "-Dcucumber.options=--tags $TEST_RUN_TAG"

@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TestDataHolder {
     private final static ConcurrentHashMap<String, Object> holder = new ConcurrentHashMap<>();
     private static final String ORDER_NUMBER_KEY = "orderNumber";
+    private static final String ORDER_ID_KEY = "orderId";
     private static final String DEPARTMENT_TITLE_KEY = "departmentTitle";
     private static final String SERVICE_TITLE_KEY = "serviceTitle";
     private static final String SUB_DEPARTMENT_TITLE_KEY = "subDepartmentTitle";
@@ -76,5 +77,13 @@ public class TestDataHolder {
 
     public String getIncomePacketsNumber() {
         return (String) holder.get(INCOME_PACKET_NUMBER_KEY);
+    }
+
+    public void setOrderId(String orderId) {
+        holder.put(ORDER_ID_KEY, orderId);
+    }
+
+    public Long getOrderId() {
+        return Long.valueOf((String) holder.get(ORDER_ID_KEY));
     }
 }

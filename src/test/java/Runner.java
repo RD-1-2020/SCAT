@@ -1,8 +1,6 @@
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
@@ -20,7 +18,5 @@ public class Runner {
         Configuration.browserSize = "1260x768";
         Configuration.timeout = 10000;
         Configuration.headless = false;
-
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
     }
 }
