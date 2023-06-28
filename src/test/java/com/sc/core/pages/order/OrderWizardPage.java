@@ -75,4 +75,8 @@ public class OrderWizardPage {
     public SelenideElement expandMainInfoLink() {
         return $(By.xpath("//app-order-short-info-common//app-dt-collapsed-panel//div[@class='dt-link-icon']"));
     }
+
+    public SelenideElement orderIdLabel() {
+        return $(By.xpath("//p[./strong[text()='Код заявления']]//span"));
+    }
 }

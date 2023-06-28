@@ -5,23 +5,20 @@ import com.sc.core.service.element.DropdownService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
-import static com.codeborne.selenide.Condition.appear;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.open;
 import static com.sc.core.constant.Message.LOGIN_OR_PASS_INCORRECT_ERROR;
 import static com.sc.core.constant.Message.USER_FIRED_ALERT;
 import static com.sc.core.constant.UrlConstant.NEXT_UI_URL_SUFFIX;
 
 public class AuthorizationSteps {
-    private final static Logger logger = LoggerFactory.getLogger(AuthorizationSteps.class);
 
     @Autowired
     private AuthorizationPage authorizationPage;
@@ -53,7 +50,7 @@ public class AuthorizationSteps {
 
     @Given("Авторизован под {string}")
     public void operatorAuth(String roleTitle) {
-        authorizationPage.loginInput().sendKeys(universalSnils);
+        authorizationPage.loginInput().should(visible, Duration.ofSeconds(10)).sendKeys(universalSnils);
         authorizationPage.passwordInput().sendKeys(universalPassword);
         authorizationPage.loginButton().click();
 
