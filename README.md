@@ -11,4 +11,4 @@
 Основной смысл связки Springboot + Cucumber - это использование CDI в шагах Cucumber, для переиспользования некоторых кусков кода и максимальное избегание какое-либо статики в тестах, возможность конфигурации через application.properties, и в целом использование всех возможностей Springboot в тестировании
 
 ## Интеграции
-- TestIt для анализа результатов работы автотестов, документация по настройке https://docs.testit.software/user-guide/autotests
+- TestIt для анализа результатов работы автотестов, документация по настройке https://docs.testit.software/user-guide/autotests https://github.com/testit-tms/adapters-java/tree/main/testit-adapter-cucumber7
