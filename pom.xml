@@ -40,6 +40,11 @@
 
         <!-- TestIT -->
         <adapter.version>1.2.5</adapter.version>
+
+        <!-- Allure -->
+        <allure.version>2.10.0</allure.version>
+        <allure.reporter.version>2.7.0</allure.reporter.version>
+        <allure.cucumber.jvm>2.13.0</allure.cucumber.jvm>
     </properties>
 
 
@@ -69,10 +74,12 @@
                     <argLine>
                         -XX:-UseSplitVerifier
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
                     </argLine>
 
                     <systemPropertyVariables>
                         <allure.link.issue.pattern>https://jira.smart-consulting.ru/browse/{}</allure.link.issue.pattern>
+                        <allure.link.tms.pattern>https://testrail.smart-consulting.ru/testrail//index.php?/suites/view/{}</allure.link.tms.pattern>
                     </systemPropertyVariables>
                 </configuration>
                 <dependencies>
@@ -95,13 +102,31 @@
             </plugin>
 
             <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure.version}</version>
+                <configuration>
+                    <reportVersion>${allure.reporter.version}</reportVersion>
+                    <allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.7.0/allure-2.7.0.zip</allureDownloadUrl>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
 
+
+
     <dependencies>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber4-jvm</artifactId>
+            <version>${allure.cucumber.jvm}</version>
+        </dependency>
+
         <dependency>
             <groupId>ru.testit</groupId>
             <artifactId>testit-java-commons</artifactId>

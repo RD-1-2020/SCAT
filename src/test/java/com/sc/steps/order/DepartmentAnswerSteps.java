@@ -26,6 +26,6 @@ public class DepartmentAnswerSteps {
     @When("Ведомство отправило положительный ответ через СМЭВ3 для парсера {string}")
     public void sendDepartmentResponse(String parserName) {
         DepartmentMessageDto departmentMessageDto = departmentMessageDtoFactory.build(testDataHolder.getOrderId(), ParserType.valueOf(parserName), true);
-        departmentRequestService.sendRequest(departmentMessageDto);
+                departmentRequestService.sendRequest(departmentMessageDto);
     }
 }
