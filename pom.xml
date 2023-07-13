@@ -37,7 +37,6 @@
 
         <!-- Allure -->
         <allure.version>2.23.0</allure.version>
-        <allure.reporter.version>2.7.0</allure.reporter.version>
         <aspectj.version>1.8.10</aspectj.version>
 
         <!-- Utils -->
