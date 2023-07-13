@@ -35,19 +35,16 @@
         <selenide.version>6.12.3</selenide.version>
         <selenium.version>4.9.1</selenium.version>
 
+        <!-- Allure -->
+        <allure.version>2.23.0</allure.version>
+        <allure.reporter.version>2.7.0</allure.reporter.version>
+        <aspectj.version>1.8.10</aspectj.version>
+
         <!-- Utils -->
         <commons.lang3.version>3.8.1</commons.lang3.version>
 
         <!-- TestIT -->
         <adapter.version>1.2.5</adapter.version>
-
-        <!-- Allure -->
-        <allure.version>2.12.0</allure.version>
-        <allure.reporter.version>2.7.0</allure.reporter.version>
-        <allure.cucumber.jvm>2.17.3</allure.cucumber.jvm>
-        <aspectj.version>1.8.10</aspectj.version>
-        <allure.results.directory>target/allure-results</allure.results.directory>
-        <allure.report.directory>target/allure-report</allure.report.directory>
     </properties>
 
 
@@ -75,17 +72,17 @@
                     </includes>
 
                     <argLine>
-                        -XX:-UseSplitVerifier
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                        -Dcucumber.options="--plugin io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
                     </argLine>
-
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.junit4.AllureJunit4</value>
+                        </property>
+                    </properties>
                     <systemPropertyVariables>
                         <allure.link.issue.pattern>https://jira.smart-consulting.ru/browse/{}</allure.link.issue.pattern>
-                        <property>
-                            <name>allure.results.directory</name>
-                            <value>${allure.results.directory}</value>
-                        </property>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                         <allure.link.tms.pattern>https://github.com/allure-framework/allure-docs/issues/{}</allure.link.tms.pattern>
                     </systemPropertyVariables>
                 </configuration>
@@ -111,10 +108,10 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>${allure.version}</version>
+                <version>2.12.0</version>
                 <configuration>
-                    <reportVersion>${allure.reporter.version}</reportVersion>
-                    <allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/2.7.0/allure-2.7.0.zip</allureDownloadUrl>
+                    <reportVersion>${allure.version}</reportVersion>
+                    <allureDownloadUrl>https://github.com/allure-framework/allure2/releases/download/${allure.version}/allure-${allure.version}.zip</allureDownloadUrl>
                     <outputDirectory>${basedir}/target/allure-reports/</outputDirectory>
                     <resultsDirectory>${basedir}/target/allure-results</resultsDirectory>
                 </configuration>
@@ -132,9 +129,15 @@
     <dependencies>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber7-jvm</artifactId>
-            <version>${allure.cucumber.jvm}</version>
+            <artifactId>allure-junit4</artifactId>
+            <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>ru.testit</groupId>

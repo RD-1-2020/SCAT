@@ -1,13 +1,15 @@
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/java/com/sc/features",
-        tags = "@bp",
+        tags = "@login20",
         extraGlue = "src/test/java/com/sc/core"
 )
 public class Runner {
@@ -18,5 +20,7 @@ public class Runner {
         Configuration.browserSize = "1260x768";
         Configuration.timeout = 10000;
         Configuration.headless = true;
+
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
     }
 }
