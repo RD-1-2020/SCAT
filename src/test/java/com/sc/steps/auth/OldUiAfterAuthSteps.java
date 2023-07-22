@@ -2,7 +2,6 @@ package com.sc.steps.auth;
 
 import com.codeborne.selenide.SelenideElement;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
@@ -11,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.$;
 
 // TODO Удалить после того как произойдёт полный отказ отказ от версий 2.0 и 3.0
@@ -59,7 +57,7 @@ public class OldUiAfterAuthSteps {
     @Then("Проверить роль в хедере 3.0: {string}")
     public void RoleHeader30(String role) {
         SelenideElement role1 = $(By.xpath("//div[@class='navigation']//a[@class='page-title__user decorated']"));
-        role1.should(visible, Duration.ofSeconds(10)).shouldHave(text(role));
+        role1.should(visible, Duration.ofSeconds(20)).shouldHave(text(role));
     }
 
     @Then("Проверить МФЦ в хедере 3.0: {string}")

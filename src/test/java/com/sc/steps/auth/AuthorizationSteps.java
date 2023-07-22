@@ -115,6 +115,11 @@ public class AuthorizationSteps {
         authorizationPage.alertMessageLabel().shouldHave(text(LOGIN_OR_PASS_INCORRECT_ERROR));
     }
 
+    @Then("Проверить текст ошибки {string}")
+    public void checkText(String textMessage) {
+        authorizationPage.alertMessageLabel().shouldHave(text(textMessage));
+    }
+
     @Then("Ввести СНИЛС {string} и нажать кнопку Войти")
     public void inputSNILS(String snils) {
         authorizationPage.loginInput().sendKeys(snils);
