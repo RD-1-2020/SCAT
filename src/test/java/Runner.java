@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/java/com/sc/features",
-        tags = "@login20",
+        tags = "@autocreate",
         extraGlue = "src/test/java/com/sc/core"
 )
 public class Runner {
